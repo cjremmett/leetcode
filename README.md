@@ -1,1 +1,1 @@
-I'm just using this to sync my work on leetcode problems between my desktop and laptop.
+I'm using this to sync my work on leetcode problems between all my devices.
