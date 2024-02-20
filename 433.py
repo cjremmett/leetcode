@@ -14,8 +14,8 @@ class Solution:
                         self.adjacency_list[gene].add(temp_gene)
 
         self.prev_genes = set()
-        self.prev_genes.add(tuple(startGene))
-        self.most_recent_prev_genes = [startGene]
+        self.prev_genes.add((startGene))
+        self.most_recent_prev_genes = (startGene, )
         self.current_genes = set()
         self.iteration = 0
         while True:
@@ -27,11 +27,11 @@ class Solution:
 
             if endGene in self.current_genes:
                 return self.iteration
-            elif self.current_genes in self.prev_genes:
+            elif tuple(self.current_genes) in self.prev_genes:
                 return -1
             else:
-                self.prev_genes.add(list(self.current_genes))
-                self.most_recent_prev_genes = list(self.current_genes)
+                self.prev_genes.add(tuple(self.current_genes))
+                self.most_recent_prev_genes = tuple(self.current_genes)
                 self.current_genes = set()
                 
 
