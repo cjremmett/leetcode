@@ -2,7 +2,15 @@ from typing import List
 
 class Solution:
     def minMutation(self, startGene: str, endGene: str, bank: List[str]) -> int:
-        return 0
+        self.bank_set = set(bank)
+        self.adjacency_list = {gene:set() for gene in bank}
+        self.adjacency_list[startGene] = set()
+        self.gene_chars = ['A', 'C', 'G', 'T']
+        for gene in bank:
+            for i in range(0, 8):
+                for char in self.gene_chars:
+                    temp_gene = gene[0:i] + char + gene[i + 1:]
+                    if temp_gene in self.bank_set:
 
 
 if __name__ == '__main__':
