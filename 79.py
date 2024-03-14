@@ -8,7 +8,14 @@ class Solution:
             for j in range(0, len(board[i])):
                 self.positions_dict[board[i][j]].add((i, j))
 
-        print(self.positions_dict)
+        for tup in self.positions_dict[word[0]]:
+            
+        
+    def next_letter_iteration(self, word, pos_to_check):
+        if pos_to_check == len(word):
+            return True
+        else:
+
         return True
 
 
