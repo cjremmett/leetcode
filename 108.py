@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 
 # Definition for a binary tree node.
 class TreeNode:
@@ -9,28 +9,27 @@ class TreeNode:
 
 class Solution:
     def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
-        root_node = TreeNode
-
-    def create_subtree(self, nums, node):
         if len(nums) == 0:
-            return
+            return None
         
-        left_node = TreeNode(nums[len(nums) // 2])
-        node.left = left_node
-        left_nums = nums[0:len(nums) // 2]
-        nums.pop(len(nums) // 2)
-        create_subtree(left_nums, left_node)
+        root_node = TreeNode(nums[len(nums) // 2])
+        root_node.left = self.sortedArrayToBST(nums[0:len(nums) // 2])
+        root_node.right = self.sortedArrayToBST(nums[(len(nums) // 2) + 1:])
+        return root_node
+        
+def inorder_traverse(node):
+    if node.left:
+        inorder_traverse(node.left)
 
-        if len(nums) == 0:
-            return
+    print(node.val)
 
-        right_node = TreeNode(nums[len(nums) // 2])
-        node.right = right_node
-        right_nums = nums[(len(nums) // 2) + 1:]
-        nums.pop(len(nums) // 2)
-        create_subtree(right_nums, right_node)
-
+    if node.right:
+        inorder_traverse(node.right)
 
 
 if __name__ == '__main__':
     node = Solution().sortedArrayToBST([-10,-3,0,5,9])
+    inorder_traverse(node)
+    print('\n')
+    node = Solution().sortedArrayToBST([-1,0,1,2])
+    inorder_traverse(node)
