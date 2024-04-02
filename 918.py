@@ -15,9 +15,9 @@ class Solution:
             best_min = min(best_min, current_min)
             sum += num
 
-        return max(best_max, sum - best_min)
+        return max(best_max, sum - best_min) if best_max > 0 else best_max
 
 if __name__ == '__main__':
-    test_cases = ( ([1,-2,3,-2], 3), ([-3,-2,-3], -2) )
+    test_cases = ( ([-3,-2,-3], -2), ([1,-2,3,-2], 3) )
     for case in test_cases:
         print('Input: ' + str(case[0]) + '\nExpected output: ' + str(case[1]) + '\nActual output: ' + str(Solution().maxSubarraySumCircular(case[0])) + '\n')
