@@ -1,25 +1,29 @@
 from typing import List
+import heapq
 
 class Solution:
     def findKthLargest(self, nums: List[int], k: int) -> int:
-        self.largest_list = [None for i in range(0, k)]
+        # priority_queue = [nums[0]]
+        # for i in range(1, len(nums)):
+        #     if nums[i] >= priority_queue[0]:
+        #         priority_queue.insert(0, nums[i])
+        #     elif nums[i] <= priority_queue[-1]:
+        #         priority_queue.append(nums[i])
+        #     else:
+        #         left = 0
+        #         right = len(priority_queue) - 1
+        #         while True:
+        #             mid = left + ((right - left) // 2)
+        #             if priority_queue[mid - 1] >= nums[i] and priority_queue[mid] <= nums[i]:
+        #                 priority_queue.insert(mid, nums[i])
+        #                 break
+        #             elif priority_queue[mid] < nums[i]:
+        #                 right = mid - 1
+        #             else:
+        #                 left = mid + 1
 
-        for i in range(0, len(nums)):
-            self.insert_into_largest_list(nums[i], k)
-
-        return self.largest_list[k - 1]
-        
-    def insert_into_largest_list(self, num, k):
-        for i in range(0, len(self.largest_list)):
-            if self.largest_list[i] == None or num >= self.largest_list[i]:
-                self.largest_list.insert(i, num)
-                break
-        
-        if len(self.largest_list) > k:
-            self.largest_list.pop()
-
-
-    
+        # return priority_queue[k - 1]
+        return (heapq.nlargest(k, nums))[-1]
 
 if __name__ == '__main__':
     test_cases = ( ([3,2,1,5,6,4], 2, 5), ([3,2,3,1,2,4,5,5,6], 4, 4))
