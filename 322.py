@@ -5,10 +5,24 @@ class Solution:
         if len(coins) == 0 or amount == 0 or coins[0] > amount:
             return -1
 
-        window = []
-        while True:
-            for segment in window:
+        if amount % coins[-1] == 0:
+            return amount // coins[-1]
+        else:
+            segment_amount = amount % coins[-1]
+            while segment_amount >= 0:
+                result = self.check_segment
                 
+    def check_segment(self, coins, target, count):
+        if len(coins) == 0 or coins[0] > target:
+            return -1
+        elif target % coins[-1] == 0:
+            return count + target // coins[-1]
+        else:
+            result = self.check_segment(coins[:-1], target - coins[-1], count)
+            if result == -1:
+                return -1
+            else:
+                return count + result
 
         
 
