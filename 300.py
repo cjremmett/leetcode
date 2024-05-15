@@ -1,18 +1,27 @@
 from typing import List
+import bisect
 
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        segments = []
-        for num in nums:
-            old_segments = segments.copy()
-            segments.append([1, num])
-            for segment in old_segments:
-                if num > segment[1]:
-                    segments.append(segment.copy())
-                    segment[0] += 1
-                    segment[1] = num
-    
-        return max(map(lambda x: x[0], segments))
+        # dp = []
+        # for n in nums:
+        #     ind = bisect.bisect_left(dp, n)
+        #     if ind == len(dp):
+        #         dp.append(n)
+        #     else:
+        #         dp[ind] = n
+        # return len(dp)
+        dp = [1 for x in nums]
+        for i in range(0, len(nums)):
+            segmax = 1
+            for j in range(0, i):
+                if nums[j] < nums[i]:
+                    segmax = max(segmax, dp[j] + 1)
+            
+            dp[i] = segmax
+
+        return max(dp)
+
 
 
 if __name__ == '__main__':
