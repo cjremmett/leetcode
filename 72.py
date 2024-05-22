@@ -1,7 +1,15 @@
+import defaultdict
+
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        best_combinations = set()
-        
+        best_combinations = []
+        chars = defaultdict(list)
+        for i in range(0, len(word1)):
+            chars[word1[i]].append(i)
+
+        for i in range(0, len(word2)):
+            for index in chars[word2[i]]:
+                best_combinations.append([])
 
 if __name__ == '__main__':
     test_cases = ( ("horse", "ros", 3), ("intention", "execution", 5))
