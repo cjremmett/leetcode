@@ -1,4 +1,4 @@
-import defaultdict
+from collections import defaultdict
 
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
@@ -17,10 +17,10 @@ class Solution:
                     if index > combo[1]:
                         dp_temp.append([combo[0] + word1[i], index])
 
-            dp.append(dp_temp)
+            dp = dp + dp_temp
             dp_temp = []
 
-        return max(map(lambda x: x[1], dp)) + abs(len(word1) - len(word2))
+        return min(map(lambda x: len(word2) - len(x[0]), dp)) + abs(len(word1) - len(word2))
 
 if __name__ == '__main__':
     test_cases = ( ("horse", "ros", 3), ("intention", "execution", 5))
