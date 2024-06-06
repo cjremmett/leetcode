@@ -1,32 +1,21 @@
 class Solution:
     def appendCharacters(self, s: str, t: str) -> int:
-        indexes = {}
-        for i in range(0, len(s)):
-            if s[i] in indexes:
-                indexes[s[i]].append(i)
-            else:
-                indexes[s[i]] = [i]
-
-        recent_pair = tuple()
+        pointer = 0
+        num_found = 0
         for i in range(0, len(t)):
-            if len(recent_pair) == 0 and t[i] in indexes:
-                recent_pair = (t[i], indexes[t[i]][0])
-            else:
-                if t[i] in indexes:
-                    for j in range(0, len(indexes[t[i]])):
-                        if indexes[t[i]][j] > recent_pair[1]:
-                            recent_pair = (t[i], indexes[t[i]][j])
-                            indexes[t[i]] = indexes[t[i]][j+1:]
-                            break
-                else:
-                    return len(t[i:])
-
-        if len(recent_pair) > 0:
-            return 0
-        else:
-            return len(t)
+            while s[pointer] != t[i]:
+                pointer += 1
+                if pointer >= len(s):
+                    return len(t) - num_found
+            
+            num_found += 1
+            pointer += 1
+            if num_found == len(t):
+                return 0
+            if pointer >= len(s):
+                return len(t) - num_found
 
 if __name__ == '__main__':
-    test_cases = ( ("zbc", "abc", 3), ("coaching", "coding", 4), ("abcde", "a", 0), ("z", "abcde", 5))
+    test_cases = ( ("lxvqffcj", "vjtgatotj", 7), ("zbc", "abc", 3), ("coaching", "coding", 4), ("abcde", "a", 0), ("z", "abcde", 5))
     for case in test_cases:
         print('Input: ' + case[0] + ' ' + case[1] + '\nExpected output: ' + str(case[2]) + '\nActual output: ' + str(Solution().appendCharacters(case[0], case[1])) + '\n')
