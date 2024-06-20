@@ -4,9 +4,16 @@ class Solution:
     def minIncrementForUnique(self, nums: List[int]) -> int:
         nums = sorted(nums)
         increment = 0
-        prev_num = 0
-
+        prev_num = -1
         
+        for num in nums:
+            if num <= prev_num:
+                increment += prev_num - num + 1
+                prev_num = num + (prev_num - num) + 1
+            else:
+                prev_num = num
+
+        return increment
 
 
 if __name__ == '__main__':
