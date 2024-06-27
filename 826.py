@@ -10,7 +10,7 @@ class Solution:
         
         pointer = 0
         for work in worker:
-            while work >= mapping[pointer][0]:
+            while pointer < len(mapping) and work >= mapping[pointer][0]:
                 if mapping[pointer][1] > highest_possible_profit:
                     highest_possible_profit = mapping[pointer][1]
                 pointer += 1
