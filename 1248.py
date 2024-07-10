@@ -2,24 +2,27 @@ from typing import List
 
 class Solution:
     def numberOfSubarrays(self, nums: List[int], k: int) -> int:
-        nice_subs = 0
-        left = 0
-        right = -1
-        num_odd = 0
+        odds = []
         for i in range(0, len(nums)):
-            right += 1
-            if nums[right] % 2 == 1:
-                num_odd += 1
+            if nums[i] % 2 == 1:
+                odds.append(i)
 
-            while num_odd > k:
-                if nums[left] % 2 == 1:
-                    num_odd -= 1
-                left -= 1
+        num_nice_subs = 0
+        for i in range(0, len(odds) - k + 1):
+            left_window_size = 0 
+            if i == 0:
+                left_window_size = odds[i]
+            else:
+                left_window_size = odds[i] - odds[i-1] - 1
 
-            if num_odd == k:
-                nice_subs += 1
+            right_window_size = 0
+            if i + k == len(odds):
+                right_window_size = len(nums) - odds[i+k-1] - 1
+            else:
+                right_window_size = odds[i+k] - odds[i+k-1] - 1
+            num_nice_subs += (left_window_size + 1) * (right_window_size + 1)
 
-        return nice_subs
+        return num_nice_subs
 
 
 if __name__ == '__main__':
