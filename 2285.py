@@ -3,7 +3,7 @@ from collections import defaultdict
 
 class Solution:
     def maximumImportance(self, n: int, roads: List[List[int]]) -> int:
-        counts = defaultdict(int)
+        counts = defaultdict(int) 
         for edge in roads:
             counts[edge[0]] += 1
             counts[edge[1]] += 1
