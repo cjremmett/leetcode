@@ -17,8 +17,9 @@ class Solution:
         
     def get_ancestors(self, edges_dict, node, prev_edges):
         for ancestor in edges_dict[node]:
-            prev_edges.add(ancestor)
-            self.get_ancestors(edges_dict, ancestor, prev_edges)
+            if ancestor not in prev_edges:
+                prev_edges.add(ancestor)
+                self.get_ancestors(edges_dict, ancestor, prev_edges)
 
 
 if __name__ == '__main__':
