@@ -1,20 +1,14 @@
 class Solution:
     def findTheWinner(self, n: int, k: int) -> int:
-        still_playing = set()
-        for i in range(0, n):
-            still_playing.add(i)
+        friends = [i for i in range(1, n + 1)]
+        index = 0
+        while len(friends) > 1:
+            real_movement = (k % len(friends)) - 1
+            index += real_movement
+            index = index % len(friends)
+            friends.pop(index)
 
-        friends = {i:True for i in range(1, n + 1)}
-        cur_friend = 1
-        while len(still_playing) > 1:
-            real_movement = k % len(still_playing)
-            for i in range(0, real_movement):
-                while friends[cur_friend] == False:
-                    cur_friend += 1
-            friends[cur_friend] = False
-            still_playing.discard(cur_friend)
-
-        return list(still_playing[0])
+        return friends[0]
 
 
 if __name__ == '__main__':
