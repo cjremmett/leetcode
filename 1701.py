@@ -6,7 +6,7 @@ class Solution:
         queued_wait_time = 0
         for i in range(0, len(customers)):
             if i != 0:
-                queued_wait_time -= (customers[i][0] - customers[i-1][0])
+                queued_wait_time -= min(queued_wait_time, (customers[i][0] - customers[i-1][0]))
             queued_wait_time += customers[i][1]
             wait_times.append(queued_wait_time)
         
