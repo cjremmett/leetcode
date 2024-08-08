@@ -12,7 +12,7 @@ class Solution:
 
         s = s.replace('(', '')
         s = s.replace(')', '')
-        return s
+        return s 
 
 if __name__ == '__main__':
     test_cases = ( ("(abcd)", "dcba"), ("(u(love)i)", "iloveu"), ("(ed(et(oc))el)", "leetcode"))
