@@ -1,3 +1,5 @@
+# Not solved
+
 from typing import List
 
 class Solution:
@@ -16,13 +18,10 @@ class Solution:
 
 
     def get_rl_indices(self, robot_struct):
-        left_indices = []
-        right_indices = []
+        left_indices = {}
+        right_indices = {}
         for i in range(0, len(robot_struct)):
-            if robot_struct[i][2] == 'L':
-                left_indices.append(i)
-            else:
-                right_indices.append(i)
+            left_indices[robot_struct[i][0]] = robot_struct[i][2]
         
         return (left_indices, right_indices)
 
