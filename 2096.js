@@ -13,38 +13,31 @@ function TreeNode(val, left, right)
  */
 var getDirections = function(root, startValue, destValue) 
 {
-    let startLevel
-    let destLevel
-    let nodeQueue = new Array()
-    nodeQueue.push([root, 0])
-    let depthLevel = 0
+    nodeMap = new Map()
+    nodeQueue = new Array()
+    nodeQueue.push(root)
     while(nodeQueue.length > 0)
     {
-        depthLevel = nodeQueue[0][1]
-        if(nodeQueue[0][0].val === startValue)
+        if(nodeQueue[0].left != null)
         {
-            startLevel = depthLevel
+            nodeMap.set(nodeQueue[0].left.val, nodeQueue[0].val)
+            nodeQueue.push(nodeQueue[0].left)
         }
 
-        if(nodeQueue[0][0].val === destValue)
+        if(nodeQueue[0].right != null)
         {
-            destLevel = depthLevel
+            nodeMap.set(nodeQueue[0].right.val, nodeQueue[0].val)
+            nodeQueue.push(nodeQueue[0].right)
         }
 
-        if(nodeQueue[0][0].left != null)
-        {
-            nodeQueue.push(nodeQueue[0][0].left, depthLevel + 1)
-        }
-
-        if(nodeQueue[0][0].right != null)
-        {
-            nodeQueue.push(nodeQueue[0][0].right, depthLevel + 1)
-        }
-
-        nodeQueue.shift(0)
+        nodeQueue.shift()
     }
+    
+    startSeen = Set()
+    destSeen = Set()
+    commonAncestor = undefined
 
-    return [startLevel, destLevel]
+    
 };
 
 node2 = new TreeNode(2, null, null)
