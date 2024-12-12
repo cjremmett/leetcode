@@ -3,22 +3,64 @@
  * @param {number[][]} queries
  * @return {boolean[]}
  */
+
 let isArraySpecial = function(nums, queries) 
 {
     let failNums = [];
     for(let i = 0; i < nums.length; i++)
     {
-        if(i === nums.length - 1)
+        if(i !== nums.length - 1 && nums[i] % 2 === nums[i+1] % 2)
         {
-            failNums.push(true);
+            failNums.push(i);
         }
-        else if(nums[i] % 2 === nums[i+1] % 2)
+    }
+
+    let results = [];
+    for(let i = 0; i < queries.length; i++)
+    {
+        if(checkQuery(failNums, queries[i]) === true)
         {
-            failNums.push(true);
+            results.push(true);
         }
         else
         {
-            failNums.push(false);
+            results.push(false);
+        }
+    }
+
+    return results;
+};
+
+/**
+ * @param {number[]} failIndexes 
+ * @param {number[]} query 
+ * @return {boolean}
+ */
+let checkQuery = function(failIndexes, query)
+{
+    console.log(failIndexes);
+    let left = 0;
+    let right = failIndexes.length - 1;
+    while(true)
+    {
+        let mid = Math.floor(left + ((right - left) / 2));
+        console.log(mid);
+
+        if(failIndexes[mid] >= query[0] && failIndexes[mid] < query[1])
+        {
+            return false;
+        }
+        else if(left >= right)
+        {
+            return true;
+        }
+        else if(mid < query[0])
+        {
+            left = mid + 1;
+        }
+        else
+        {
+            right = mid - 1;
         }
     }
 };
