@@ -4,15 +4,21 @@
  */
 var countPrefixSuffixPairs = function(words) 
 {
-    let wordMap = new Map();
-    for(let j = 0; j < words.length; j++)
+    let count = 0;
+    for(let i = 0; i < words.length; i++)
     {
-        for(let i = 1; i < Math.floor(word.length / 2); i++)
+        for(let j = i + 1; j < words.length; j++)
         {
-            if(words[j].substring(0, i).equals(words[j].substring(words[j].length - i)))
-            wordMap.set(), j)
+            let prefix = words[j].substring(0, words[i].length);
+            let suffix = words[j].substring(words[j].length - words[i].length);
+            if(prefix === words[i] && suffix === words[i])
+            {
+                count ++;
+            }
         }
     }
+
+    return count;
 };
 
 let testCases = [ [["a","aba","ababa","aa"], 4], [["pa","papa","ma","mama"], 2]];
