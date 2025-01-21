@@ -4,39 +4,41 @@
  * @return {string}
  */
 var shiftingLetters = function(s, shifts) {
-    for(const shift of shifts)
+    let return_string = '';
+    for(let i = 0; i < s.length; i++)
     {
-        let start = s.substring(0, shift[0]);
-        let end = s.substring(shift[1] + 1);
-        let shifted = s.substring(shift[0], shift[1] + 1);
-        let shifted_post = '';
-        for(let i = 0; i < shifted.length; i++)
+        let charCode = s.charCodeAt(i);
+        let offset = 0;
+        for(const shift of shifts)
         {
-            let cc = shifted.charCodeAt(i);
-            if(shift[2] === 1)
+            if(i >= shift[0] && i <= shift[1])
             {
-                cc++;
+                if(shift[2] === 0)
+                {
+                    offset--;
+                }
+                else
+                {
+                    offset++;
+                }
             }
-            else
-            {
-                cc--;
-            }
-            
-            if(cc === 96)
-            {
-                cc = 122;
-            }
-            else if(cc === 123)
-            {
-                cc = 97;
-            }
-
-            shifted_post = shifted_post + String.fromCharCode(cc);
         }
-        s = start + shifted_post + end;
+        offset = offset % 26;
+
+        charCode = charCode + offset;
+        if(charCode < 97)
+        {
+            charCode = 123 - (97 - charCode);
+        }
+        else if (charCode > 122)
+        {
+            charCode = 96 + (charCode - 122);
+        }
+
+        return_string = return_string + String.fromCharCode(charCode);
     }
 
-    return s;
+    return return_string;
 };
 
 let testCases = [ ["abc", [[0,1,0],[1,2,1],[0,2,1]], 'ace'], ["dztz", [[0,0,0],[1,1,1]], 'catz']];
