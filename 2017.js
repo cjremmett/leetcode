@@ -27,41 +27,31 @@ var gridGame = function(grid) {
         totalSum -= num;
     }
 
-    let maxFirstRobot = 0;
-    let dropLocation = 0;
+    let maxAtBestDropLocation = Number.MAX_SAFE_INTEGER;
     for(let i = 0; i < forwardSumArray.length; i++)
     {
-        let sumAtLocation = forwardSumArray[i] + backwardSumArray[i];
-        if(sumAtLocation > maxFirstRobot)
+        let topAtLocation = forwardSumArray[forwardSumArray.length -1] - forwardSumArray[i];
+        let bottomAtLocation = backwardSumArray[0] - backwardSumArray[i];
+        let mostAtLocation = 0;
+        if(topAtLocation >= bottomAtLocation)
         {
-            maxFirstRobot = sumAtLocation;
-            dropLocation = i;
+            mostAtLocation = topAtLocation;
+        }
+        else
+        {
+            mostAtLocation = bottomAtLocation;
+        }
+
+        if(mostAtLocation < maxAtBestDropLocation)
+        {
+            maxAtBestDropLocation = mostAtLocation;
         }
     }
 
-    let maxTop = 0;
-    for(let i = dropLocation + 1; i < grid[0].length; i++)
-    {
-        maxTop += grid[0][i];
-    }
-
-    let maxBottom = 0;
-    for(let i = 0; i < dropLocation; i++)
-    {
-        maxBottom += grid[1][i];
-    }
-
-    if(maxTop > maxBottom)
-    {
-        return maxTop;
-    }
-    else
-    {
-        return maxBottom;
-    }
+    return maxAtBestDropLocation;
 };
 
-let testCases = [ [ [[2,5,4],[1,5,1]], 4], [ [[3,3,1],[8,5,2]], 4], [ [[1,3,1,15],[1,3,3,1]], 7], [ ]]
+let testCases = [ [ [[2,5,4],[1,5,1]], 4], [ [[3,3,1],[8,5,2]], 4], [ [[1,3,1,15],[1,3,3,1]], 7], [[[20,3,20,17,2,12,15,17,4,15],[20,10,13,14,15,5,2,3,14,3]], 63]]
 for(let test of testCases)
 {
     console.log('Input: ' + test[0] + '\nExpected output: ' + test[1] + '\nActual output: ' + gridGame(test[0]) + '\n');
