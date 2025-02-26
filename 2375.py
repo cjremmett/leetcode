@@ -1,18 +1,31 @@
 class Solution:
     def smallestNumber(self, pattern: str) -> str:
-        num_array = [i for i in range(0, len(pattern))]
+        num_array = [str(i + 1) for i in range(0, len(pattern))]
         result = ''
         lp = 0
         rp = 0
         while True:
-            if rp + 1 < len(nums) and pattern[lp] == pattern[rp + 1]:
+            if rp + 1 < len(pattern) and pattern[lp] == pattern[rp + 1]:
                 rp += 1
                 continue
 
+            print("lp: " + str(lp) + ' rp: ' + str(rp))
+
             if pattern[lp] == 'I':
-                result = result +
+                result = result + ''.join(num_array[0:(rp - lp) + 1])
+                num_array = num_array[(rp - lp) + 1:]
+                lp = rp + 1
+                rp += 1
+            else:
+                result = result + ''.join(reversed(num_array[0:(rp - lp) + 1]))
+                num_array = num_array[(rp - lp) + 1:]
+                lp = rp + 1
+                rp += 1
 
+            if len(num_array) == 0:
+                break
 
+        return result
 
 
 if __name__ == '__main__':
