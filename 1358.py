@@ -10,9 +10,10 @@ class Solution:
         rp = 0
         while True:
             if counts['a'] > 0 and counts['b'] > 0 and counts['c'] > 0:
-                lp += 1
                 counts[s[lp]] -= 1
+                lp += 1
                 return_count += len(s) - rp
+                #print('lp:' + str(lp) + ' rp: ' + str(rp) + ' count: ' + str(return_count))
             else:
                 rp += 1
                 if rp == len(s):
