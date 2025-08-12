@@ -5,8 +5,10 @@ class MyQueue {
     }
 
     push(x: number): void {
+        console.log(`Pushing ${x}`);
         let st: Array<number> = [];
-        for(let i = 0; i < this.s.length; i++)
+        let numOps = this.s.length;
+        for(let i = 0; i < numOps; i++)
         {
             let tempNum = this.s.pop();
             if(typeof tempNum === 'number')
@@ -17,7 +19,7 @@ class MyQueue {
 
         this.s.push(x);
 
-        for(let j = 0; j < st.length; j++)
+        for(let j = 0; j < numOps; j++)
         {
             let tempNum = st.pop();
             if(typeof tempNum === 'number')
@@ -26,14 +28,13 @@ class MyQueue {
             }
         }
 
-        console.log(this.s);
-        console.log(st);
+        console.log(`After pushing ${x}, s is ${this.s}`);
     }
 
     pop(): number | undefined {
         if(this.s.length > 0)
         {
-            return this.s.splice(0)[0];
+            return this.s.splice(-1)[0];
         }
         else
         {
@@ -44,7 +45,7 @@ class MyQueue {
     peek(): number | undefined {
         if(this.s.length > 0)
         {
-            return this.s[0];
+            return this.s[this.s.length - 1];
         }
         else
         {
